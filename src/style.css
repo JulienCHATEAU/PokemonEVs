@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Base palette: clean white/slate with emerald accent ── */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fafc;
+  --color-surface-raised: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  /* ── Emerald accent ── */
+  --color-accent: #059669;
+  --color-accent-light: #d1fae5;
+  --color-accent-dark: #047857;
+  --color-accent-hover: #10b981;
+  --color-accent-subtle: #ecfdf5;
+
+  /* ── Gold for "maxed" states ── */
+  --color-gold: #f59e0b;
+  --color-gold-light: #fef3c7;
+  --color-gold-dark: #b45309;
+
+  /* ── Stat colors ── */
+  --color-stat-hp: #ef4444;
+  --color-stat-atk: #f97316;
+  --color-stat-def: #eab308;
+  --color-stat-spa: #818cf8;
+  --color-stat-spd: #34d399;
+  --color-stat-spe: #f472b6;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text-primary);
+  overscroll-behavior: none;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Pixelated sprites */
+.sprite-pixel {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
