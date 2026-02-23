@@ -10,10 +10,11 @@ A client-side **Effort Value (EV) tracker** for **Pokémon Emerald (Gen III)**, 
 
 ## ✨ Features
 
-### Team Management
+### Team Sidebar
 - Build a team of up to 6 Pokémon selected from the complete **202-entry Hoenn Pokédex**.
-- Switch between team members via a pill-based selector bar.
-- Each Pokémon's EVs are tracked independently.
+- Permanent **collapsible sidebar** on desktop (260 px ↔ 64 px icons-only) and **slide-over drawer** on mobile.
+- SVG **progress rings** per Pokémon showing total EV completion at a glance.
+- Delete any team member via a trash icon with a **confirmation modal**.
 
 ### Pokédex Browser
 - Full-screen searchable Pokédex modal with Gen III Emerald sprites (sourced from [PokeAPI sprites](https://github.com/PokeAPI/sprites)).
@@ -21,23 +22,35 @@ A client-side **Effort Value (EV) tracker** for **Pokémon Emerald (Gen III)**, 
 - Hover over any entry to preview its EV yield.
 
 ### EV Training Simulation
-- **Farm Spots** — Predefined optimal grinding locations (e.g. *Whismur in Rusturf Tunnel* for HP EVs). Click to simulate defeating a wild Pokémon and gain the corresponding EVs.
+- **Farm Spots** — Predefined optimal grinding locations grouped by stat (e.g. *Whismur in Rusturf Tunnel* for HP EVs). Click to simulate defeating a wild Pokémon and gain the corresponding EVs.
 - **Vitamins** — HP Up, Protein, Iron, Calcium, Zinc, Carbos — each grants +10 EVs, capped at 100 per stat (Gen III rules).
-- **Fine-tuning** — Per-stat −1 buttons for precise manual adjustment.
-- **Filter** farm spots by the stat you're currently training.
+- **Fine-tuning** — Per-stat −1 buttons integrated directly into each stat bar for precise manual adjustment.
 
-### Training Multipliers
-- Toggle **Macho Brace** (×2) and **Pokérus** (×2), stackable up to **×4**.
-- Actual EV gain is displayed on hover, accounting for active multipliers.
+### Per-Pokémon Settings (Popover)
+- **Gear icon** in the identity card opens a floating popover.
+- Toggle **Macho Brace** (×2, with item sprite) and **Pokérus** (×2), stackable up to **×4**.
+- Live multiplier summary displayed inside the popover.
 
 ### Stats Dashboard
 - Real-time **animated progress bars** per stat, color-coded (HP, Atk, Def, SpA, SpD, Spe).
 - Total 510 EV progress bar with a 🏆 trophy icon when the cap is reached.
 - Gold **MAX** badge when an individual stat hits 252.
+- Identity card showing sprite, name, types, and active multiplier badge.
+
+### Dark Mode
+- **Sun / Moon toggle** in the header.
+- Full dark palette (deep navy / slate backgrounds, vibrant emerald accents, off-white text).
+- Respects system preference on first visit; choice persisted to `localStorage`.
 
 ### Bilingual Interface (EN / FR)
 - Full English & French translations for UI labels, stat names, Pokémon names, type names, and location names.
-- Language toggle in the header; preference saved to `localStorage`.
+- **Language dropdown** with flag emojis and checkmark on the active language.
+- Preference saved to `localStorage`.
+
+### Data Portability
+- **Backup** your entire team to a timestamped JSON file.
+- **Import** a backup with automatic validation and confirmation dialog.
+- **Clear all data** with a danger-zone confirmation.
 
 ### Persistence
 - Auto-saves your entire team and active selection to `localStorage` (key: `emerald-ev-tracker-v3`).
@@ -90,24 +103,31 @@ Serves the production build locally for testing.
 
 ```
 PokemonEVs/
-├── index.html                  # Entry HTML
-├── package.json                # Dependencies & scripts
-├── vite.config.js              # Vite + Vue + Tailwind config
-├── public/                     # Static assets
+├── index.html                       # Entry HTML (favicon → logo.png)
+├── package.json                     # Dependencies & scripts
+├── vite.config.js                   # Vite + Vue + Tailwind config
+├── public/
+│   └── logo.png                     # App logo / favicon
 └── src/
-    ├── main.js                 # App bootstrap
-    ├── App.vue                 # Root component (header, layout, modals)
-    ├── style.css               # Tailwind imports & CSS custom properties
+    ├── main.js                      # App bootstrap
+    ├── App.vue                      # Root layout (header, sidebar, main, modals)
+    ├── style.css                    # Tailwind @theme variables + dark mode overrides
     ├── components/
-    │   ├── BaseButton.vue      # Reusable button (5 variants, 3 sizes)
-    │   ├── PokedexModal.vue    # Full-screen Pokédex browser
-    │   ├── ActionPanel.vue     # Training controls (multipliers, farm spots, vitamins)
-    │   └── StatsDashboard.vue  # EV progress bars & identity card
+    │   ├── BaseButton.vue           # Reusable button (5 variants, 3 sizes)
+    │   ├── PokedexModal.vue         # Full-screen Pokédex browser
+    │   ├── ActionPanel.vue          # Training controls (farm spots, vitamins)
+    │   ├── StatsDashboard.vue       # EV progress bars, identity card, −1 buttons
+    │   ├── PokemonSidebar.vue       # Collapsible team sidebar + mobile drawer
+    │   ├── PokemonSettings.vue      # Per-Pokémon Macho Brace / Pokérus popover
+    │   ├── LanguageSelector.vue     # EN/FR language dropdown
+    │   └── DataManager.vue          # Backup / import / clear data modal
     ├── composables/
-    │   ├── useStore.js         # Reactive state: team CRUD, EV logic, localStorage
-    │   └── useI18n.js          # EN/FR i18n system & language toggle
+    │   ├── useStore.js              # Reactive state: team CRUD, EV logic, persistence
+    │   ├── useI18n.js               # EN/FR i18n system with translation keys
+    │   ├── useTheme.js              # Dark / light mode toggle & persistence
+    │   └── useDataService.js        # JSON export, import & validation helpers
     └── data/
-        └── hoennDex.js         # 202 Pokédex entries, farm spots, vitamins, sprite helpers
+        └── hoennDex.js              # 202 Pokédex entries, farm spots, vitamins, sprite helpers
 ```
 
 ---
@@ -118,7 +138,7 @@ PokemonEVs/
 | ----------- | ---------------------------------------------------------------- |
 | Framework   | [Vue 3](https://vuejs.org/) — Composition API, `<script setup>` |
 | Build Tool  | [Vite 7](https://vitejs.dev/)                                    |
-| Styling     | [Tailwind CSS 4](https://tailwindcss.com/)                       |
+| Styling     | [Tailwind CSS 4](https://tailwindcss.com/) with `@theme` CSS custom properties |
 | Icons       | [Lucide Vue Next](https://lucide.dev/)                           |
 | Language    | JavaScript (ES Modules)                                          |
 | Sprites     | [PokeAPI Sprites](https://github.com/PokeAPI/sprites) (Gen III Emerald) |
@@ -144,11 +164,11 @@ PokemonEVs/
 ## 🧩 Architecture Overview
 
 ```
-User interaction (click farm spot / vitamin / toggle modifier)
+User interaction (click farm spot / vitamin / toggle setting)
         │
         ▼
   ActionPanel.vue ──▶ useStore composable methods
-                      (defeatPokemon, useVitamin, toggleMultiplier…)
+  PokemonSettings.vue   (defeatPokemon, useVitamin, toggleMultiplier…)
         │
         ▼
   Reactive state mutation (pokemonList[activeIndex].evs)
@@ -156,12 +176,13 @@ User interaction (click farm spot / vitamin / toggle modifier)
         │
         ▼
   Vue reactivity ──▶ StatsDashboard.vue (progress bars update)
+                 ──▶ PokemonSidebar.vue (progress rings update)
         │
         ▼
   watch() ──▶ save() ──▶ localStorage
 ```
 
-State is managed via a **singleton composable** (`useStore.js`) using module-level `ref`s shared across all components.
+State is managed via a **singleton composable** (`useStore.js`) using module-level `ref`s shared across all components. Theme and language preferences are each managed by their own composable with independent `localStorage` keys.
 
 ---
 
