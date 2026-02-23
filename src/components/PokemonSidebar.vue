@@ -6,10 +6,11 @@
  * Delete via trash icon on active Pokémon with confirm-on-click safety.
  */
 import { ref } from 'vue'
-import { Plus, Trash2, ChevronLeft, ChevronRight, X } from 'lucide-vue-next'
+import { Plus, Trash2, ChevronLeft, ChevronRight, X, AlertTriangle } from 'lucide-vue-next'
 import { useI18n } from '../composables/useI18n.js'
 import { useStore } from '../composables/useStore.js'
 import { getSpriteUrl } from '../data/hoennDex.js'
+import BaseButton from './BaseButton.vue'
 
 const { lang, t } = useI18n()
 const {
@@ -26,21 +27,32 @@ const mobileOpen = ref(false)
 function toggleCollapsed() { collapsed.value = !collapsed.value }
 function closeMobile() { mobileOpen.value = false }
 
-// ── Delete safety (double-click to confirm) ────
-const confirmDeleteIdx = ref(-1)
-let confirmTimer = null
+// ── Delete confirmation modal ──────────────────
+const deleteTargetIdx = ref(-1)
+const showDeleteModal = ref(false)
 
 function requestDelete(idx, e) {
   e.stopPropagation()
-  if (confirmDeleteIdx.value === idx) {
-    removePokemon(idx)
-    confirmDeleteIdx.value = -1
-    clearTimeout(confirmTimer)
-  } else {
-    confirmDeleteIdx.value = idx
-    clearTimeout(confirmTimer)
-    confirmTimer = setTimeout(() => { confirmDeleteIdx.value = -1 }, 3000)
+  deleteTargetIdx.value = idx
+  showDeleteModal.value = true
+}
+
+function confirmDelete() {
+  if (deleteTargetIdx.value >= 0) {
+    removePokemon(deleteTargetIdx.value)
   }
+  showDeleteModal.value = false
+  deleteTargetIdx.value = -1
+}
+
+function cancelDelete() {
+  showDeleteModal.value = false
+  deleteTargetIdx.value = -1
+}
+
+function deleteTargetName() {
+  const p = pokemonList.value[deleteTargetIdx.value]
+  return displayName(p)
 }
 
 // ── Helpers ────────────────────────────────────
@@ -155,16 +167,12 @@ defineExpose({ mobileOpen })
             </p>
           </div>
 
-          <!-- Delete button on active Pokémon (expanded only) -->
+          <!-- Delete button on every Pokémon (expanded only) -->
           <button
-            v-if="!collapsed && idx === activeIndex && pokemonList.length > 1"
-            :class="[
-              'shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer',
-              confirmDeleteIdx === idx
-                ? 'bg-red-100 text-red-500 scale-110'
-                : 'opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500',
-            ]"
-            :title="confirmDeleteIdx === idx ? t('sidebar.confirmDelete') : t('pokemon.remove')"
+            v-if="!collapsed && pokemonList.length > 1"
+            class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer
+                   opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500"
+            :title="t('pokemon.remove')"
             @click="requestDelete(idx, $event)"
           >
             <Trash2 :size="14" />
@@ -256,16 +264,12 @@ defineExpose({ mobileOpen })
                 </p>
               </div>
 
-              <!-- Delete on active -->
+              <!-- Delete on every Pokémon -->
               <button
-                v-if="idx === activeIndex && pokemonList.length > 1"
-                :class="[
-                  'shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer',
-                  confirmDeleteIdx === idx
-                    ? 'bg-red-100 text-red-500 scale-110'
-                    : 'opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500',
-                ]"
-                :title="confirmDeleteIdx === idx ? t('sidebar.confirmDelete') : t('pokemon.remove')"
+                v-if="pokemonList.length > 1"
+                class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer
+                       opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500"
+                :title="t('pokemon.remove')"
                 @click="requestDelete(idx, $event)"
               >
                 <Trash2 :size="14" />
@@ -287,6 +291,56 @@ defineExpose({ mobileOpen })
           </button>
         </div>
       </aside>
+    </Transition>
+  </Teleport>
+
+  <!-- ═══ Delete Confirmation Modal ═══ -->
+  <Teleport to="body">
+    <Transition name="sb-backdrop">
+      <div
+        v-if="showDeleteModal"
+        class="fixed inset-0 z-[70] flex items-center justify-center"
+      >
+        <div
+          class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+          @click="cancelDelete"
+        />
+        <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+              <AlertTriangle :size="20" class="text-red-500" />
+            </div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)]">
+                {{ t('sidebar.deleteTitle').replace('{name}', deleteTargetName()) }}
+              </h3>
+              <p class="text-sm text-[var(--color-text-muted)] mt-0.5">
+                {{ t('sidebar.deleteMsg') }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <BaseButton
+              variant="default"
+              size="md"
+              class="flex-1"
+              @click="cancelDelete"
+            >
+              {{ t('sidebar.cancelBtn') }}
+            </BaseButton>
+            <BaseButton
+              variant="danger"
+              size="md"
+              class="flex-1"
+              @click="confirmDelete"
+            >
+              <Trash2 :size="16" />
+              {{ t('sidebar.deleteBtn') }}
+            </BaseButton>
+          </div>
+        </div>
+      </div>
     </Transition>
   </Teleport>
 </template>

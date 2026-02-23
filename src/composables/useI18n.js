@@ -49,6 +49,10 @@ const translations = {
       team: 'Team',
       addPokemon: 'Add Pokémon',
       confirmDelete: 'Click again to confirm deletion',
+      deleteTitle: 'Delete {name}?',
+      deleteMsg: 'Are you sure you want to delete this Pokémon? All its EV data will be lost.',
+      deleteBtn: 'Delete',
+      cancelBtn: 'Cancel',
     },
     pokedex: {
       title: 'Hoenn Regional Pokédex',
@@ -152,6 +156,10 @@ const translations = {
       team: 'Équipe',
       addPokemon: 'Ajouter un Pokémon',
       confirmDelete: 'Cliquez à nouveau pour confirmer',
+      deleteTitle: 'Supprimer {name} ?',
+      deleteMsg: 'Êtes-vous sûr de vouloir supprimer ce Pokémon ? Toutes ses données d\'EVs seront perdues.',
+      deleteBtn: 'Supprimer',
+      cancelBtn: 'Annuler',
     },
     pokedex: {
       title: 'Pokédex Régional de Hoenn',
