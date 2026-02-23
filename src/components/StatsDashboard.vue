@@ -4,13 +4,13 @@
  * per-stat animated bars. i18n-aware stat labels.
  */
 import { computed } from 'vue'
-import { BarChart3, Trophy } from 'lucide-vue-next'
+import { BarChart3, Trophy, Minus } from 'lucide-vue-next'
 import { STAT_KEYS, STAT_META, getSpriteUrl } from '../data/hoennDex.js'
 import { useI18n } from '../composables/useI18n.js'
 import { useStore } from '../composables/useStore.js'
 
 const { lang, t } = useI18n()
-const { activePokemon, totalEvs, evPercent, getMultiplier } = useStore()
+const { activePokemon, totalEvs, evPercent, getMultiplier, adjustEv } = useStore()
 
 const pokemon = computed(() => activePokemon.value)
 const total = computed(() => totalEvs(pokemon.value))
@@ -147,9 +147,21 @@ function isStatMaxed(stat) {
           >
             {{ t('stats.' + stat) }}
           </span>
-          <span class="text-xs font-mono text-[var(--color-text-secondary)]">
-            {{ pokemon.evs[stat] }} / {{ pokemon.evCap }}
-          </span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-[var(--color-text-secondary)]">
+              {{ pokemon.evs[stat] }} / {{ pokemon.evCap }}
+            </span>
+            <button
+              :disabled="pokemon.evs[stat] <= 0"
+              class="w-5 h-5 rounded flex items-center justify-center
+                     text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50
+                     transition-all cursor-pointer disabled:opacity-0 disabled:pointer-events-none"
+              :title="t('stats.minus1')"
+              @click="adjustEv(stat, -1)"
+            >
+              <Minus :size="12" />
+            </button>
+          </div>
         </div>
         <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
           <div

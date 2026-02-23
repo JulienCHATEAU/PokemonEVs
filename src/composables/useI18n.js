@@ -45,6 +45,11 @@ const translations = {
       openPokedex: 'Open Pokédex',
       myPokemons: 'My Pokémons',
     },
+    sidebar: {
+      team: 'Team',
+      addPokemon: 'Add Pokémon',
+      confirmDelete: 'Click again to confirm deletion',
+    },
     pokedex: {
       title: 'Hoenn Regional Pokédex',
       search: 'Search by name, type, or dex number…',
@@ -82,6 +87,7 @@ const translations = {
       evComplete: 'EV Complete',
       boost: 'BOOST',
       max: 'MAX',
+      minus1: '-1 EV',
       hp: 'HP',
       atk: 'ATK',
       def: 'DEF',
@@ -142,6 +148,11 @@ const translations = {
       openPokedex: 'Ouvrir le Pokédex',
       myPokemons: 'Mes Pokémons',
     },
+    sidebar: {
+      team: 'Équipe',
+      addPokemon: 'Ajouter un Pokémon',
+      confirmDelete: 'Cliquez à nouveau pour confirmer',
+    },
     pokedex: {
       title: 'Pokédex Régional de Hoenn',
       search: 'Chercher par nom, type ou numéro…',
@@ -179,6 +190,7 @@ const translations = {
       evComplete: 'EVs Terminés',
       boost: 'BOOST',
       max: 'MAX',
+      minus1: '-1 EV',
       hp: 'PV',
       atk: 'ATQ',
       def: 'DÉF',

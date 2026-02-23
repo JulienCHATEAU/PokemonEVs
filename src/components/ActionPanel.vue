@@ -5,7 +5,7 @@
  * -1 fine-tuning buttons per stat, all i18n-aware.
  */
 import { ref, computed } from 'vue'
-import { Swords, FlaskConical, Minus, Shield, Zap } from 'lucide-vue-next'
+import { Swords, FlaskConical, Zap } from 'lucide-vue-next'
 import { FARM_SPOTS, VITAMINS, STAT_KEYS, STAT_META, getSpriteUrl, getItemSpriteUrl } from '../data/hoennDex.js'
 import { useI18n } from '../composables/useI18n.js'
 import { useStore } from '../composables/useStore.js'
@@ -14,7 +14,7 @@ import BaseButton from './BaseButton.vue'
 const { lang, t } = useI18n()
 const {
   activePokemon, getMultiplier,
-  defeatPokemon, useVitamin, adjustEv, toggleMultiplier
+  defeatPokemon, useVitamin, toggleMultiplier
 } = useStore()
 
 // ── Stat filter chips ──────────────────────────────
@@ -224,39 +224,6 @@ function isVitaminDisabled(stat) {
       </div>
     </section>
 
-    <!-- ═══ Fine-tuning: -1 per stat ═══ -->
-    <section class="bg-white rounded-2xl border border-[var(--color-border)] p-4">
-      <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
-        <Shield :size="15" class="text-[var(--color-accent)]" />
-        {{ lang === 'fr' ? 'Ajustement fin' : 'Fine-tuning' }}
-      </h3>
 
-      <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-        <div
-          v-for="stat in STAT_KEYS"
-          :key="stat"
-          class="flex flex-col items-center gap-1"
-        >
-          <span
-            class="text-[11px] font-semibold"
-            :style="{ color: STAT_META[stat].color }"
-          >
-            {{ t('stats.' + stat) }}
-          </span>
-          <span class="text-xs font-mono text-[var(--color-text-secondary)]">
-            {{ activePokemon?.evs[stat] ?? 0 }}
-          </span>
-          <BaseButton
-            variant="default"
-            size="sm"
-            square
-            :disabled="!activePokemon || (activePokemon?.evs[stat] ?? 0) <= 0"
-            @click="adjustEv(stat, -1)"
-          >
-            <Minus :size="14" />
-          </BaseButton>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
