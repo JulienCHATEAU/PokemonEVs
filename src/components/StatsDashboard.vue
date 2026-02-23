@@ -8,6 +8,7 @@ import { BarChart3, Trophy, Minus } from 'lucide-vue-next'
 import { STAT_KEYS, STAT_META, getSpriteUrl } from '../data/hoennDex.js'
 import { useI18n } from '../composables/useI18n.js'
 import { useStore } from '../composables/useStore.js'
+import PokemonSettings from './PokemonSettings.vue'
 
 const { lang, t } = useI18n()
 const { activePokemon, totalEvs, evPercent, getMultiplier, adjustEv } = useStore()
@@ -40,7 +41,7 @@ function isStatMaxed(stat) {
     <!-- ═══ Identity Card ═══ -->
     <section
       v-if="pokemon"
-      class="bg-white rounded-2xl border border-[var(--color-border)] p-5"
+      class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-5"
     >
       <div class="flex items-center gap-4">
         <!-- Sprite -->
@@ -59,9 +60,13 @@ function isStatMaxed(stat) {
 
         <!-- Info -->
         <div class="flex-1 min-w-0">
-          <h2 class="text-xl font-bold text-[var(--color-text-primary)] truncate">
-            {{ displayName(pokemon) }}
-          </h2>
+          <div class="flex items-start justify-between gap-2">
+            <h2 class="text-xl font-bold text-[var(--color-text-primary)] truncate">
+              {{ displayName(pokemon) }}
+            </h2>
+            <!-- Settings gear -->
+            <PokemonSettings />
+          </div>
           <div v-if="pokemon.dexEntry" class="flex items-center gap-1.5 mt-1">
             <span class="text-xs text-[var(--color-text-muted)]">
               #{{ String(pokemon.dexEntry.hoennId).padStart(3, '0') }}
@@ -69,7 +74,7 @@ function isStatMaxed(stat) {
             <span
               v-for="tp in pokemon.dexEntry.types"
               :key="tp"
-              class="text-[10px] font-medium bg-slate-100 text-[var(--color-text-secondary)]
+              class="text-[10px] font-medium bg-[var(--color-surface-muted)] text-[var(--color-text-secondary)]
                      px-1.5 py-0.5 rounded-md"
             >
               {{ t('types.' + tp) }}
@@ -79,7 +84,7 @@ function isStatMaxed(stat) {
           <!-- Multiplier info -->
           <div v-if="multiplier > 1" class="flex items-center gap-1 mt-1.5">
             <span class="text-[10px] font-bold text-[var(--color-gold-dark)]
-                         bg-[var(--color-gold-light)] px-1.5 py-0.5 rounded-md border border-amber-200">
+                         bg-[var(--color-gold-light)] px-1.5 py-0.5 rounded-md border border-amber-200/50">
               {{ t('stats.boost') }} ×{{ multiplier }}
             </span>
             <span v-if="pokemon.machoActive" class="text-[10px] text-[var(--color-text-muted)]">
@@ -96,7 +101,7 @@ function isStatMaxed(stat) {
     <!-- ═══ Total EV Progress ═══ -->
     <section
       v-if="pokemon"
-      class="bg-white rounded-2xl border border-[var(--color-border)] p-4"
+      class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-4"
     >
       <div class="flex items-center justify-between mb-2">
         <h3 class="text-sm font-semibold text-[var(--color-text-primary)] flex items-center gap-2">
@@ -107,14 +112,14 @@ function isStatMaxed(stat) {
           class="text-xs font-bold px-2 py-1 rounded-lg"
           :class="isMaxed
             ? 'bg-[var(--color-gold-light)] text-[var(--color-gold-dark)]'
-            : 'bg-slate-100 text-[var(--color-text-secondary)]'"
+            : 'bg-[var(--color-surface-muted)] text-[var(--color-text-secondary)]'"
         >
           {{ total }} / 510
         </span>
       </div>
 
       <!-- Total bar -->
-      <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-1">
+      <div class="w-full h-3 bg-[var(--color-surface-muted)] rounded-full overflow-hidden mb-1">
         <div
           class="h-full rounded-full transition-all duration-500 ease-out"
           :class="isMaxed ? 'bg-[var(--color-gold)]' : 'bg-[var(--color-accent)]'"
@@ -134,7 +139,7 @@ function isStatMaxed(stat) {
     <!-- ═══ Per-Stat Bars ═══ -->
     <section
       v-if="pokemon"
-      class="bg-white rounded-2xl border border-[var(--color-border)] p-4 space-y-3"
+      class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-4 space-y-3"
     >
       <div
         v-for="stat in STAT_KEYS"
@@ -154,7 +159,7 @@ function isStatMaxed(stat) {
             <button
               :disabled="pokemon.evs[stat] <= 0"
               class="w-5 h-5 rounded flex items-center justify-center
-                     text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50
+                     text-[var(--color-text-muted)] hover:text-[var(--color-danger-text)] hover:bg-[var(--color-danger-bg)]
                      transition-all cursor-pointer disabled:pointer-events-none"
               :title="t('stats.minus1')"
               @click="adjustEv(stat, -1)"
@@ -163,7 +168,7 @@ function isStatMaxed(stat) {
             </button>
           </div>
         </div>
-        <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+        <div class="w-full h-2.5 bg-[var(--color-surface-muted)] rounded-full overflow-hidden">
           <div
             class="h-full rounded-full transition-all duration-300 ease-out"
             :style="{
@@ -181,7 +186,7 @@ function isStatMaxed(stat) {
     <!-- ═══ Empty state ═══ -->
     <div
       v-if="!pokemon"
-      class="bg-white rounded-2xl border border-[var(--color-border)] p-10 text-center"
+      class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-10 text-center"
     >
       <BarChart3 :size="40" class="mx-auto text-[var(--color-text-muted)] mb-3" />
       <p class="font-medium text-[var(--color-text-secondary)]">{{ t('pokemon.noPokemon') }}</p>

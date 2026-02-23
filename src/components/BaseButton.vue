@@ -28,24 +28,24 @@ defineEmits(['click'])
       square && '!px-0 aspect-square',
       // Variant
       variant === 'default' && [
-        'bg-white border-[var(--color-border)] text-[var(--color-text-primary)]',
-        'hover:bg-slate-50 hover:border-[var(--color-border-strong)]',
+        'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)]',
+        'hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-strong)]',
       ],
       variant === 'accent' && [
         'bg-[var(--color-accent)] border-[var(--color-accent-dark)] text-white',
         'hover:bg-[var(--color-accent-hover)]',
       ],
       variant === 'danger' && [
-        'bg-red-50 border-red-200 text-red-600',
-        'hover:bg-red-100 hover:border-red-300',
+        'bg-[var(--color-danger-bg)] border-[var(--color-danger-border)] text-[var(--color-danger-text)]',
+        'hover:bg-[var(--color-danger-bg-hover)] hover:border-[var(--color-danger-border)]',
       ],
       variant === 'ghost' && [
         'bg-transparent border-transparent text-[var(--color-text-secondary)]',
-        'hover:bg-slate-100 hover:text-[var(--color-text-primary)]',
+        'hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]',
       ],
       variant === 'chip' && !active && [
-        'bg-white border-[var(--color-border)] text-[var(--color-text-secondary)]',
-        'hover:bg-slate-50 hover:border-[var(--color-border-strong)]',
+        'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)]',
+        'hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-strong)]',
       ],
       variant === 'chip' && active && [
         'bg-[var(--color-accent-subtle)] border-[var(--color-accent)]',

@@ -5,11 +5,14 @@
   --color-surface: #ffffff;
   --color-surface-alt: #f8fafc;
   --color-surface-raised: #ffffff;
+  --color-surface-hover: #f1f5f9;
+  --color-surface-muted: #f1f5f9;
   --color-border: #e2e8f0;
   --color-border-strong: #cbd5e1;
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
+  --color-ring-track: #e2e8f0;
 
   /* ── Emerald accent ── */
   --color-accent: #059669;
@@ -23,6 +26,12 @@
   --color-gold-light: #fef3c7;
   --color-gold-dark: #b45309;
 
+  /* ── Danger ── */
+  --color-danger-bg: #fef2f2;
+  --color-danger-bg-hover: #fee2e2;
+  --color-danger-border: #fecaca;
+  --color-danger-text: #dc2626;
+
   /* ── Stat colors ── */
   --color-stat-hp: #ef4444;
   --color-stat-atk: #f97316;
@@ -30,6 +39,40 @@
   --color-stat-spa: #818cf8;
   --color-stat-spd: #34d399;
   --color-stat-spe: #f472b6;
+
+  /* ── Header blur ── */
+  --color-header-bg: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Dark mode overrides ── */
+.dark {
+  --color-surface: #1e293b;
+  --color-surface-alt: #0f172a;
+  --color-surface-raised: #334155;
+  --color-surface-hover: #334155;
+  --color-surface-muted: #1e293b;
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-ring-track: #334155;
+
+  --color-accent: #10b981;
+  --color-accent-light: #064e3b;
+  --color-accent-dark: #34d399;
+  --color-accent-hover: #059669;
+  --color-accent-subtle: rgba(16, 185, 129, 0.1);
+
+  --color-gold-light: rgba(245, 158, 11, 0.15);
+  --color-gold-dark: #fbbf24;
+
+  --color-danger-bg: rgba(239, 68, 68, 0.1);
+  --color-danger-bg-hover: rgba(239, 68, 68, 0.2);
+  --color-danger-border: rgba(239, 68, 68, 0.3);
+  --color-danger-text: #f87171;
+
+  --color-header-bg: rgba(15, 23, 42, 0.8);
 }
 
 * {
@@ -42,6 +85,7 @@ body {
   overscroll-behavior: none;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Scrollbar */

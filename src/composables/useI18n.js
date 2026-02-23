@@ -131,6 +131,23 @@ const translations = {
       'Surf': 'Surf',
       'Route 104': 'Route 104',
     },
+    theme: {
+      title: 'Theme',
+      light: 'Light',
+      dark: 'Dark',
+    },
+    settings: {
+      title: 'Settings',
+      machoBrace: 'Macho Brace',
+      pokerus: 'Pokérus',
+      activeBonus: 'Active bonus',
+      noBonus: 'No bonus active',
+    },
+    language: {
+      title: 'Language',
+      en: 'English',
+      fr: 'Français',
+    },
     types: {
       Normal: 'Normal', Fire: 'Fire', Water: 'Water', Grass: 'Grass',
       Electric: 'Electric', Ice: 'Ice', Fighting: 'Fighting', Poison: 'Poison',
@@ -140,7 +157,7 @@ const translations = {
   },
   fr: {
     header: {
-      title: 'Suivi des EVs Émeraude',
+      title: 'Suivi des EVs',
       subtitle: 'Gen III · Pokémon Émeraude',
     },
     pokemon: {
@@ -237,6 +254,23 @@ const translations = {
       'Route 113': 'Route 113',
       'Surf': 'Surf',
       'Route 104': 'Route 104',
+    },
+    theme: {
+      title: 'Thème',
+      light: 'Clair',
+      dark: 'Sombre',
+    },
+    settings: {
+      title: 'Paramètres',
+      machoBrace: 'Bracelet Macho',
+      pokerus: 'Pokérus',
+      activeBonus: 'Bonus actif',
+      noBonus: 'Aucun bonus actif',
+    },
+    language: {
+      title: 'Langue',
+      en: 'English',
+      fr: 'Français',
     },
     types: {
       Normal: 'Normal', Fire: 'Feu', Water: 'Eau', Grass: 'Plante',

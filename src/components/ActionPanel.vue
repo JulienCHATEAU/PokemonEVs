@@ -5,16 +5,15 @@
  * -1 fine-tuning buttons per stat, all i18n-aware.
  */
 import { ref, computed } from 'vue'
-import { Swords, FlaskConical, Zap } from 'lucide-vue-next'
+import { Swords, FlaskConical } from 'lucide-vue-next'
 import { FARM_SPOTS, VITAMINS, STAT_KEYS, STAT_META, getSpriteUrl, getItemSpriteUrl } from '../data/hoennDex.js'
 import { useI18n } from '../composables/useI18n.js'
 import { useStore } from '../composables/useStore.js'
-import BaseButton from './BaseButton.vue'
 
 const { lang, t } = useI18n()
 const {
   activePokemon, getMultiplier,
-  defeatPokemon, useVitamin, toggleMultiplier
+  defeatPokemon, useVitamin,
 } = useStore()
 
 // ── Farm spots grouped by stat ─────────────────────
@@ -45,56 +44,8 @@ function isVitaminDisabled(stat) {
 
 <template>
   <div class="space-y-5">
-    <!-- ═══ Training Modifiers ═══ -->
-    <section class="bg-white rounded-2xl border border-[var(--color-border)] p-4">
-      <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
-        <Zap :size="15" class="text-[var(--color-accent)]" />
-        {{ t('modifiers.title') }}
-      </h3>
-
-      <div class="flex flex-wrap gap-2">
-        <!-- Macho Brace -->
-        <BaseButton
-          variant="chip"
-          size="sm"
-          :active="activePokemon?.machoActive"
-          :disabled="!activePokemon"
-          @click="toggleMultiplier('macho')"
-        >
-          <img
-            :src="getItemSpriteUrl('macho-brace')"
-            alt="Macho Brace"
-            class="w-5 h-5 sprite-pixel"
-          />
-          {{ t('modifiers.machoBrace') }}
-        </BaseButton>
-
-        <!-- Pokérus -->
-        <BaseButton
-          variant="chip"
-          size="sm"
-          :active="activePokemon?.pokerusActive"
-          :disabled="!activePokemon"
-          @click="toggleMultiplier('pokerus')"
-        >
-          <span class="text-base">🦠</span>
-          {{ t('modifiers.pokerus') }}
-        </BaseButton>
-
-        <!-- Multiplier badge -->
-        <div
-          v-if="multiplier > 1 && activePokemon"
-          class="flex items-center gap-1 px-2.5 h-9 rounded-lg
-                 bg-[var(--color-gold-light)] text-[var(--color-gold-dark)]
-                 text-xs font-bold border border-amber-200"
-        >
-          ×{{ multiplier }}
-        </div>
-      </div>
-    </section>
-
     <!-- ═══ Wild Pokémon (Farm Spots) — Grouped by Stat ═══ -->
-    <section class="bg-white rounded-2xl border border-[var(--color-border)] p-4">
+    <section class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-4">
       <div class="mb-3">
         <h3 class="text-sm font-semibold text-[var(--color-text-primary)] flex items-center gap-2">
           <Swords :size="15" class="text-[var(--color-accent)]" />
@@ -167,7 +118,7 @@ function isVitaminDisabled(stat) {
     </section>
 
     <!-- ═══ Vitamins ═══ -->
-    <section class="bg-white rounded-2xl border border-[var(--color-border)] p-4">
+    <section class="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-4">
       <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2">
         <FlaskConical :size="15" class="text-[var(--color-accent)]" />
         {{ t('vitamins.title') }}

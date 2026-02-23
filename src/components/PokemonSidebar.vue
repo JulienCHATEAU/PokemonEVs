@@ -98,7 +98,7 @@ defineExpose({ mobileOpen })
   <!-- ═══ Desktop sidebar ═══ -->
   <aside
     :class="[
-      'hidden lg:flex flex-col bg-white border-r border-[var(--color-border)]',
+      'hidden lg:flex flex-col bg-[var(--color-surface)] border-r border-[var(--color-border)]',
       'shrink-0 h-full overflow-hidden',
       collapsed ? 'sidebar-collapsed' : 'sidebar-expanded',
     ]"
@@ -112,7 +112,7 @@ defineExpose({ mobileOpen })
         {{ t('sidebar.team') }}
       </span>
       <button
-        class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100
+        class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[var(--color-surface-hover)]
                transition-colors cursor-pointer shrink-0"
         :class="collapsed && 'mx-auto'"
         @click="toggleCollapsed"
@@ -133,14 +133,14 @@ defineExpose({ mobileOpen })
             collapsed ? 'justify-center p-2' : 'px-3 py-2.5',
             idx === activeIndex
               ? 'bg-[var(--color-accent-subtle)] border border-[var(--color-accent)]'
-              : 'border border-transparent hover:bg-slate-50 hover:border-[var(--color-border)]',
+              : 'border border-transparent hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]',
           ]"
           @click="handleSelect(idx)"
         >
           <!-- Progress ring + sprite -->
           <div class="relative shrink-0 w-10 h-10 flex items-center justify-center">
             <svg class="absolute inset-0 w-10 h-10 -rotate-90" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" :r="RING_R" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+              <circle cx="18" cy="18" :r="RING_R" fill="none" :stroke="'var(--color-ring-track)'" stroke-width="2.5" />
               <circle
                 cx="18" cy="18" :r="RING_R" fill="none"
                 :stroke="ringColor(pkmn)" stroke-width="2.5" stroke-linecap="round"
@@ -171,7 +171,7 @@ defineExpose({ mobileOpen })
           <button
             v-if="!collapsed && pokemonList.length > 1"
             class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer
-                   opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500"
+                   opacity-0 group-hover:opacity-100 hover:bg-[var(--color-danger-bg)] text-[var(--color-text-muted)] hover:text-[var(--color-danger-text)]"
             :title="t('pokemon.remove')"
             @click="requestDelete(idx, $event)"
           >
@@ -203,7 +203,7 @@ defineExpose({ mobileOpen })
     <Transition name="sb-slide">
       <aside
         v-if="mobileOpen"
-        class="fixed inset-y-0 left-0 z-50 w-[280px] bg-white border-r border-[var(--color-border)]
+        class="fixed inset-y-0 left-0 z-50 w-[280px] bg-[var(--color-surface)] border-r border-[var(--color-border)]
                flex flex-col shadow-2xl lg:hidden"
       >
         <!-- Header -->
@@ -212,7 +212,7 @@ defineExpose({ mobileOpen })
             {{ t('sidebar.team') }}
           </span>
           <button
-            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100
+            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[var(--color-surface-hover)]
                    transition-colors cursor-pointer"
             @click="closeMobile"
           >
@@ -230,14 +230,14 @@ defineExpose({ mobileOpen })
                 'w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all cursor-pointer group relative',
                 idx === activeIndex
                   ? 'bg-[var(--color-accent-subtle)] border border-[var(--color-accent)]'
-                  : 'border border-transparent hover:bg-slate-50 hover:border-[var(--color-border)]',
+                  : 'border border-transparent hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]',
               ]"
               @click="handleSelect(idx)"
             >
               <!-- Progress ring + sprite -->
               <div class="relative shrink-0 w-10 h-10 flex items-center justify-center">
                 <svg class="absolute inset-0 w-10 h-10 -rotate-90" viewBox="0 0 36 36">
-                  <circle cx="18" cy="18" :r="RING_R" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+                  <circle cx="18" cy="18" :r="RING_R" fill="none" :stroke="'var(--color-ring-track)'" stroke-width="2.5" />
                   <circle
                     cx="18" cy="18" :r="RING_R" fill="none"
                     :stroke="ringColor(pkmn)" stroke-width="2.5" stroke-linecap="round"
@@ -268,7 +268,7 @@ defineExpose({ mobileOpen })
               <button
                 v-if="pokemonList.length > 1"
                 class="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer
-                       opacity-0 group-hover:opacity-100 hover:bg-red-50 text-[var(--color-text-muted)] hover:text-red-500"
+                       opacity-0 group-hover:opacity-100 hover:bg-[var(--color-danger-bg)] text-[var(--color-text-muted)] hover:text-[var(--color-danger-text)]"
                 :title="t('pokemon.remove')"
                 @click="requestDelete(idx, $event)"
               >
@@ -305,10 +305,10 @@ defineExpose({ mobileOpen })
           class="absolute inset-0 bg-black/40 backdrop-blur-sm"
           @click="cancelDelete"
         />
-        <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
+        <div class="relative z-10 w-full max-w-sm bg-[var(--color-surface)] rounded-2xl shadow-2xl p-6 mx-4">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-              <AlertTriangle :size="20" class="text-red-500" />
+            <div class="w-10 h-10 rounded-full bg-[var(--color-danger-bg)] flex items-center justify-center shrink-0">
+              <AlertTriangle :size="20" class="text-[var(--color-danger-text)]" />
             </div>
             <div>
               <h3 class="font-bold text-[var(--color-text-primary)]">

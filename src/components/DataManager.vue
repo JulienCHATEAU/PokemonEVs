@@ -99,7 +99,7 @@ function confirmClear() {
       />
 
       <!-- Panel -->
-      <div class="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl mx-4 overflow-hidden">
+      <div class="relative z-10 w-full max-w-md bg-[var(--color-surface)] rounded-2xl shadow-2xl mx-4 overflow-hidden">
         <!-- Header -->
         <div class="flex items-center justify-between px-5 pt-5 pb-3">
           <div class="flex items-center gap-2.5">
@@ -111,7 +111,7 @@ function confirmClear() {
             </h2>
           </div>
           <button
-            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors cursor-pointer"
             @click="emit('close')"
           >
             <X :size="18" class="text-[var(--color-text-muted)]" />
@@ -126,7 +126,7 @@ function confirmClear() {
             :class="[
               'rounded-xl px-4 py-3 text-sm font-medium flex items-center gap-2',
               feedbackType === 'success' && 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-              feedbackType === 'error' && 'bg-red-50 text-red-600 border border-red-200',
+              feedbackType === 'error' && 'bg-[var(--color-danger-bg)] text-[var(--color-danger-text)] border border-[var(--color-danger-border)]',
             ]"
           >
             <AlertTriangle v-if="feedbackType === 'error'" :size="16" />
@@ -172,7 +172,7 @@ function confirmClear() {
           class="absolute inset-0 bg-black/30 backdrop-blur-sm"
           @click="cancelImport"
         />
-        <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
+        <div class="relative z-10 w-full max-w-sm bg-[var(--color-surface)] rounded-2xl shadow-2xl p-6 mx-4">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-16 h-10 rounded-full bg-amber-100 flex items-center justify-center">
               <AlertTriangle :size="20" class="text-amber-600" />
@@ -206,10 +206,10 @@ function confirmClear() {
           class="absolute inset-0 bg-black/30 backdrop-blur-sm"
           @click="showConfirmClear = false"
         />
-        <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
+        <div class="relative z-10 w-full max-w-sm bg-[var(--color-surface)] rounded-2xl shadow-2xl p-6 mx-4">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-16 h-10 rounded-full bg-red-100 flex items-center justify-center">
-              <AlertTriangle :size="20" class="text-red-500" />
+            <div class="w-16 h-10 rounded-full bg-[var(--color-danger-bg)] flex items-center justify-center">
+              <AlertTriangle :size="20" class="text-[var(--color-danger-text)]" />
             </div>
             <div>
               <h3 class="font-bold text-[var(--color-text-primary)]">

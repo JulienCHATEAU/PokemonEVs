@@ -62,7 +62,7 @@ function selectPokemon(pkmn) {
       />
 
       <!-- Panel -->
-      <div class="relative z-10 w-full max-w-3xl max-h-[90vh] bg-white rounded-t-2xl sm:rounded-2xl
+      <div class="relative z-10 w-full max-w-3xl max-h-[90vh] bg-[var(--color-surface)] rounded-t-2xl sm:rounded-2xl
                   flex flex-col shadow-2xl overflow-hidden">
         <!-- Header -->
         <div class="flex items-center justify-between px-5 pt-5 pb-3">

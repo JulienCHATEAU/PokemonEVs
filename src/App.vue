@@ -1,16 +1,18 @@
 <script setup>
 /**
- * App.vue — V4 "Sidebar Edition"
- * Permanent sidebar (desktop), slide-over (mobile),
+ * App.vue — V6 "Pro UI Polish"
+ * Dark mode, PokemonSettings popover, LanguageSelector dropdown,
+ * permanent sidebar (desktop), slide-over (mobile),
  * 2-column main content, i18n, Pokédex modal, data manager.
  */
 import { ref, computed } from 'vue'
 import {
-  Globe, BookOpen, AlertTriangle, Database, Menu,
+  BookOpen, AlertTriangle, Database, Menu, Sun, Moon,
 } from 'lucide-vue-next'
 
 import { useI18n } from './composables/useI18n.js'
 import { useStore } from './composables/useStore.js'
+import { useTheme } from './composables/useTheme.js'
 
 import BaseButton from './components/BaseButton.vue'
 import PokedexModal from './components/PokedexModal.vue'
@@ -18,13 +20,15 @@ import ActionPanel from './components/ActionPanel.vue'
 import StatsDashboard from './components/StatsDashboard.vue'
 import DataManager from './components/DataManager.vue'
 import PokemonSidebar from './components/PokemonSidebar.vue'
+import LanguageSelector from './components/LanguageSelector.vue'
 
-const { lang, toggleLang, t } = useI18n()
+const { lang, t } = useI18n()
 const {
   pokemonList, activeIndex, activePokemon,
   addPokemon, removePokemon, selectPokemon,
   resetStats, totalEvs, initPersistence,
 } = useStore()
+const { dark, toggle: toggleTheme } = useTheme()
 
 initPersistence(lang.value === 'fr' ? 'Mon Pokémon' : 'My Pokémon')
 
@@ -71,13 +75,13 @@ function confirmReset() {
 <template>
   <div class="h-screen flex flex-col bg-[var(--color-surface-alt)]">
     <!-- ═══ Header ═══ -->
-    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-[var(--color-border)] shrink-0">
+    <header class="sticky top-0 z-30 bg-[var(--color-header-bg)] backdrop-blur-lg border-b border-[var(--color-border)] shrink-0">
       <div class="px-4 h-14 flex items-center justify-between">
         <!-- Left: Mobile hamburger + Logo -->
         <div class="flex items-center gap-2">
           <!-- Mobile sidebar trigger -->
           <button
-            class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100
+            class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-[var(--color-surface-hover)]
                    transition-colors cursor-pointer"
             @click="openMobileSidebar"
           >
@@ -94,15 +98,19 @@ function confirmReset() {
         </div>
 
         <!-- Right: Actions -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <BaseButton variant="ghost" size="sm" @click="showDataManager = true">
             <Database :size="16" />
           </BaseButton>
 
-          <BaseButton variant="ghost" size="sm" @click="toggleLang">
-            <Globe :size="16" />
-            <span class="text-xs font-bold uppercase">{{ lang === 'en' ? 'FR' : 'EN' }}</span>
+          <!-- Theme toggle -->
+          <BaseButton variant="ghost" size="sm" @click="toggleTheme">
+            <Sun v-if="dark" :size="16" />
+            <Moon v-else :size="16" />
           </BaseButton>
+
+          <!-- Language dropdown -->
+          <LanguageSelector />
 
           <BaseButton variant="accent" size="sm" @click="showPokedex = true">
             <BookOpen :size="16" />
@@ -177,10 +185,10 @@ function confirmReset() {
           class="absolute inset-0 bg-black/40 backdrop-blur-sm"
           @click="showConfirmReset = false"
         />
-        <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
+        <div class="relative z-10 w-full max-w-sm bg-[var(--color-surface)] rounded-2xl shadow-2xl p-6 mx-4">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-16 h-10 rounded-full bg-red-100 flex items-center justify-center">
-              <AlertTriangle :size="20" class="text-red-500" />
+            <div class="w-16 h-10 rounded-full bg-[var(--color-danger-bg)] flex items-center justify-center">
+              <AlertTriangle :size="20" class="text-[var(--color-danger-text)]" />
             </div>
             <div>
               <h3 class="font-bold text-[var(--color-text-primary)]">
