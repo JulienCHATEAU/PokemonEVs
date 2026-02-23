@@ -6,7 +6,7 @@
  */
 import { ref, computed } from 'vue'
 import {
-  Globe, BookOpen, Plus, Trash2, ChevronDown, AlertTriangle,
+  Globe, BookOpen, Plus, Trash2, ChevronDown, AlertTriangle, Database,
 } from 'lucide-vue-next'
 
 import { useI18n } from './composables/useI18n.js'
@@ -17,6 +17,7 @@ import BaseButton from './components/BaseButton.vue'
 import PokedexModal from './components/PokedexModal.vue'
 import ActionPanel from './components/ActionPanel.vue'
 import StatsDashboard from './components/StatsDashboard.vue'
+import DataManager from './components/DataManager.vue'
 
 const { lang, toggleLang, t } = useI18n()
 const {
@@ -47,6 +48,9 @@ function displayName(p) {
 // ── Confirm dialog ────────────────────────────────
 const showConfirmReset = ref(false)
 
+// ── Data manager ──────────────────────────────────
+const showDataManager = ref(false)
+
 function requestReset() {
   if (!activePokemon.value) return
   showConfirmReset.value = true
@@ -76,6 +80,11 @@ function confirmReset() {
 
         <!-- Actions -->
         <div class="flex items-center gap-2">
+          <!-- Data Manager -->
+          <BaseButton variant="ghost" size="sm" @click="showDataManager = true">
+            <Database :size="16" />
+          </BaseButton>
+
           <!-- Language toggle -->
           <BaseButton variant="ghost" size="sm" @click="toggleLang">
             <Globe :size="16" />
@@ -96,7 +105,7 @@ function confirmReset() {
       <div class="bg-white rounded-2xl border border-[var(--color-border)] p-3">
         <div class="flex items-center gap-2">
           <span class="text-xs font-semibold text-[var(--color-text-secondary)] shrink-0">
-            {{ t('pokemon.myPokemon') }}
+            {{ t('pokemon.myPokemons') }}
           </span>
 
           <!-- Team pills -->
@@ -190,6 +199,12 @@ function confirmReset() {
       @close="showPokedex = false"
     />
 
+    <!-- ═══ Data Manager Modal ═══ -->
+    <DataManager
+      v-if="showDataManager"
+      @close="showDataManager = false"
+    />
+
     <!-- ═══ Confirm Reset Dialog ═══ -->
     <Teleport to="body">
       <div
@@ -202,7 +217,7 @@ function confirmReset() {
         />
         <div class="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 mx-4">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+            <div class="w-16 h-10 rounded-full bg-red-100 flex items-center justify-center">
               <AlertTriangle :size="20" class="text-red-500" />
             </div>
             <div>

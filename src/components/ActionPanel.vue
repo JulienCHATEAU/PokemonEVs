@@ -173,8 +173,9 @@ function isVitaminDisabled(stat) {
           </div>
           <span
             v-if="multiplier > 1 && activePokemon"
-            class="text-[10px] font-bold text-[var(--color-gold-dark)] bg-[var(--color-gold-light)]
-                   px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+            class="text-[10px] font-bold 
+                 px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity
+                 text-gray-600 bg-gray-100 border border-gray-600"
           >
             +{{ spot.baseEv * multiplier }}
           </span>
