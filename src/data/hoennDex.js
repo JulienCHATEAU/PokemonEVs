@@ -230,7 +230,7 @@ export const STAT_KEYS = ['hp','atk','def','spa','spd','spe']
 
 export const FARM_SPOTS = [
   { stat:'hp',  nationalId:293, name:'Whismur',   nameFr:'Chuchmur',   baseEv:1, location:'Rusturf Tunnel' },
-  { stat:'atk', nationalId:353, name:'Shuppet',   nameFr:'Polichombr', baseEv:1, location:'Mt. Pyre' },
+  { stat:'atk', nationalId:353, name:'Shuppet',   nameFr:'Polichombr', baseEv:1, location:'Mt Pyre' },
   { stat:'def', nationalId:74,  name:'Geodude',   nameFr:'Racaillou',  baseEv:1, location:'Fiery Path' },
   { stat:'def', nationalId:324, name:'Torkoal',   nameFr:'Chartor',    baseEv:2, location:'Fiery Path' },
   { stat:'spa', nationalId:322, name:'Numel',     nameFr:'Chamallot',  baseEv:1, location:'Route 113' },

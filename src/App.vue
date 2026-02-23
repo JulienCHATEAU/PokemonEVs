@@ -65,9 +65,7 @@ function confirmReset() {
       <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <!-- Logo -->
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-[var(--color-accent)] rounded-lg flex items-center justify-center">
-            <span class="text-white text-sm font-black">E</span>
-          </div>
+          <img src="/logo.png" alt="Emerald EV Tracker" class="w-8 h-8 rounded-lg object-contain" />
           <div class="hidden sm:block">
             <h1 class="text-sm font-bold text-[var(--color-text-primary)] leading-tight">
               {{ t('header.title') }}

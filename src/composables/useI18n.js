@@ -99,7 +99,7 @@ const translations = {
     },
     locations: {
       'Rusturf Tunnel': 'Rusturf Tunnel',
-      'Mt. Pyre': 'Mt. Pyre',
+      'Mt Pyre': 'Mt Pyre',
       'Fiery Path': 'Fiery Path',
       'Route 113': 'Route 113',
       'Surf': 'Surf',
@@ -180,7 +180,7 @@ const translations = {
     },
     locations: {
       'Rusturf Tunnel': 'Tunnel Mérazon',
-      'Mt. Pyre': 'Mont Mémoria',
+      'Mt Pyre': 'Mont Mémoria',
       'Fiery Path': 'Chemin Ardent',
       'Route 113': 'Route 113',
       'Surf': 'Surf',
