@@ -130,7 +130,7 @@ function confirmReset() {
 
       <!-- Main content -->
       <main class="flex-1 overflow-y-auto">
-        <div class="max-w-5xl mx-auto px-4 py-5 pb-8">
+        <div class="max-w-5xl mx-auto px-4 py-10">
           <div class="flex flex-col lg:flex-row gap-5">
             <!-- Left: Action Panel -->
             <div class="w-full lg:w-[55%]">

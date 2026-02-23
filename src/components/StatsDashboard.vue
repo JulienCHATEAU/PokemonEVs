@@ -87,12 +87,6 @@ function isStatMaxed(stat) {
                          bg-[var(--color-gold-light)] px-1.5 py-0.5 rounded-md border border-amber-200/50">
               {{ t('stats.boost') }} ×{{ multiplier }}
             </span>
-            <span v-if="pokemon.machoActive" class="text-[10px] text-[var(--color-text-muted)]">
-              {{ t('modifiers.machoBrace') }}
-            </span>
-            <span v-if="pokemon.pokerusActive" class="text-[10px] text-[var(--color-text-muted)]">
-              {{ t('modifiers.pokerus') }}
-            </span>
           </div>
         </div>
       </div>
