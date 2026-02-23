@@ -129,7 +129,7 @@ function isVitaminDisabled(stat) {
               v-for="spot in group.spots"
               :key="spot.nationalId + spot.stat"
               :disabled="!activePokemon"
-              class="flex items-center gap-2 px-2.5 py-2 rounded-xl border border-[var(--color-border)]
+              class="flex w-3/7 items-center gap-2 px-2.5 py-2 rounded-xl border border-[var(--color-border)]
                      hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)]
                      transition-all cursor-pointer disabled:opacity-40 disabled:pointer-events-none
                      active:scale-[0.97] group"

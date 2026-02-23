@@ -155,7 +155,7 @@ function isStatMaxed(stat) {
               :disabled="pokemon.evs[stat] <= 0"
               class="w-5 h-5 rounded flex items-center justify-center
                      text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50
-                     transition-all cursor-pointer disabled:opacity-0 disabled:pointer-events-none"
+                     transition-all cursor-pointer disabled:pointer-events-none"
               :title="t('stats.minus1')"
               @click="adjustEv(stat, -1)"
             >
